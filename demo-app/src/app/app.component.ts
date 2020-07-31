@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { Color } from './models/Color';
+import { ColorFormComponent } from './components/color-form/color-form.component';
+
 @Component({
   selector: 'app-root2',
   templateUrl: './app.component.html', // template
@@ -11,14 +14,21 @@ export class AppComponent {
 
   headerText = 'Color Tool';
 
-  colors = [
-    'red', 'green', 'blue',
+  colors: Color[] = [
+    { id: 1, name: 'red', hexcode: 'ff0000' },
+    { id: 2, name: 'green', hexcode: '00ff00' },
+    { id: 3, name: 'blue', hexcode: '0000ff' },
   ];
 
+  doAddColor(color: Color): void {
+    this.colors = this.colors.concat({
+      ...color,
+      id: Math.max(...this.colors.map(c => c.id), 0) + 1,
+    });
+  }
 
-  addColor(colorName: string): void {
-    this.colors = this.colors.concat(colorName); // immutable
-    // this.colors.push(this.colorForm.value.colorName); // mutates the model
+  doDeleteColor(colorId: number): void {
+    this.colors = this.colors.filter(c => c.id !== colorId);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { Color } from '../../models/Color';
 
 @Component({
   selector: 'app-color-form',
@@ -12,7 +13,7 @@ export class ColorFormComponent implements OnInit {
   colorForm: FormGroup;
 
   @Output()
-  submitColor = new EventEmitter<string>();
+  submitColor = new EventEmitter<Color>();
 
   // private fb: FormBuilder;
 
@@ -25,11 +26,15 @@ export class ColorFormComponent implements OnInit {
   ngOnInit(): void {
     this.colorForm = this.fb.group({
       colorName: '',
+      colorHexcode: '',
     });
   }
 
   doSubmitColor(): void {
-    this.submitColor.emit(this.colorForm.value.colorName);
+    this.submitColor.emit({
+      name: this.colorForm.value.colorName,
+      hexcode: this.colorForm.value.colorHexcode,
+    });
   }
 
 

@@ -1,6 +1,8 @@
 <ul>
   <li *ngFor="let color of colors">
-    {{color}}
+    {{color.id}} {{color.name}} {{color.hexcode}}
+    <button type="button"
+      (click)="deleteColor.emit(color.id)">X</button>
   </li>
   <!-- <ng-template ngFor [ngForOf]="colors" let-color>
       <li>{{color}}</li>

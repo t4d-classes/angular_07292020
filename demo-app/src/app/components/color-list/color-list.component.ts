@@ -1,4 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component, OnInit, Input,
+  Output, EventEmitter,
+} from '@angular/core';
+
+import { Color } from '../../models/Color';
 
 @Component({
   selector: 'app-color-list',
@@ -8,7 +13,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ColorListComponent implements OnInit {
 
   @Input()
-  colors: string[] = [];
+  colors: Color[] = [];
+
+  @Output()
+  deleteColor = new EventEmitter<number>();
 
   constructor() { }
 
