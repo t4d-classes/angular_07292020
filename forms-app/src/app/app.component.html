@@ -1,0 +1,52 @@
+<form [formGroup]="contactForm">
+
+  <div>
+    <label>First Name</label>
+    <input type="text" name="firstName"
+      [(ngModel)]="firstName" >
+  </div>
+
+  <div>
+    First Name: {{firstName}}
+  </div>
+
+  <div>
+    <label>First Name 2</label>
+    <input type="text" [formControl]="firstName2Input">
+  </div>
+
+  <div>
+    First Name 2: {{firstName2}}
+  </div>
+
+  <div>
+    <label>Full Name</label>
+    <input type="text" formControlName="fullName">
+  </div>
+
+  <fieldset formGroupName="addressForm">
+
+    <div>
+      <label>Street</label>
+      <input type="text" formControlName="street">
+    </div>
+  
+    <div>
+      <label>City</label>
+      <input type="text" formControlName="city">
+    </div>
+
+    <div>
+      <label>Zip Code</label>
+      <input type="text" formControlName="zipcode">
+    </div>
+
+  </fieldset>
+
+  <button type="button" (click)="doSaveContact()">
+    Save
+  </button>
+
+
+
+</form>
