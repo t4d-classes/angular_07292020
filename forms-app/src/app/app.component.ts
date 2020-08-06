@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+
+type FormControlConfig = [ string | number, { validators: ValidatorFn[] } ];
 
 @Component({
   selector: 'app-root',
@@ -32,14 +34,25 @@ export class AppComponent implements OnInit {
     // });
 
     this.contactForm = this.fb.group({
-      fullName: '',
+      fullName: [ '', { validators: [ Validators.required ] } ],
       addressForm: this.fb.group({
-        street: '',
+        street: this.formControlReqMinLen('', 3),
         city: '',
         zipcode: '',
       }),
     });
 
+  }
+
+  showCtrlErrorMsg(controlName: string): boolean {
+
+    const fullname = this.contactForm.get(controlName);
+
+    return fullname.invalid && fullname.touched;
+  }
+
+  formControlReqMinLen(initialValue = '', minLength: number): FormControlConfig {
+    return [ initialValue, { validators: [ Validators.required, Validators.minLength(minLength) ] } ];
   }
 
   doSaveContact(): void {
