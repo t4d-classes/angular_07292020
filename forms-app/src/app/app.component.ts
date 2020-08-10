@@ -3,6 +3,46 @@ import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractC
 
 type FormControlConfig = [ string | number, { validators: ValidatorFn[] } ];
 
+const myRequiredValidator = (control: AbstractControl) => {
+
+  if (control.value == null || String(control.value).length === 0) {
+    return {
+      // validation for myRequired failed
+      myRequired: true,
+    };
+  }
+
+  // control is valid
+  return null;
+};
+
+const isEmpty = (value: any) => {
+  return (value == null || String(value).length === 0);
+};
+
+const cityStateZipCodeValidator = (control: AbstractControl) => {
+
+  const city = control.get('city').value;
+  const state = control.get('state').value;
+  const zipcode = control.get('zipcode').value;
+
+  if ((!isEmpty(city) || !isEmpty(state)) && !isEmpty(zipcode)) {
+    return {
+      cityStateZipCode: 'Please enter only a city and state or a zipcode.',
+    };
+  }
+
+  if ((isEmpty(city) || isEmpty(state)) && isEmpty(zipcode)) {
+    return {
+      cityStateZipCode: 'Please enter a city and state or a zipcode.',
+    };
+  }
+
+  return null;
+
+};
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,12 +74,18 @@ export class AppComponent implements OnInit {
     // });
 
     this.contactForm = this.fb.group({
-      fullName: [ '', { validators: [ Validators.required ] } ],
-      addressForm: this.fb.group({
-        street: this.formControlReqMinLen('', 3),
-        city: '',
-        zipcode: '',
-      }),
+      fullName: [ '', { validators: [ myRequiredValidator, Validators.required ] } ],
+      addressForm: this.fb.group(
+        {
+          street: this.formControlReqMinLen('', 3),
+          city: '',
+          state: '',
+          zipcode: '',
+        },
+        {
+          validators: [ cityStateZipCodeValidator ],
+        },
+      ),
     });
 
   }
@@ -53,6 +99,19 @@ export class AppComponent implements OnInit {
 
   formControlReqMinLen(initialValue = '', minLength: number): FormControlConfig {
     return [ initialValue, { validators: [ Validators.required, Validators.minLength(minLength) ] } ];
+  }
+
+  get addressFormHasErrors() {
+    return this.contactForm.get('addressForm').errors != null;
+  }
+
+  get addressFormErrorMessages(): string[] {
+
+    return Object.keys(this.contactForm.get('addressForm').errors).map(errorKey => {
+
+      return this.contactForm.get('addressForm').errors[errorKey];
+
+    });
   }
 
   doSaveContact(): void {

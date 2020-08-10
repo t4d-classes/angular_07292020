@@ -23,9 +23,18 @@
     <label>Full Name</label>
     <span *ngIf="showCtrlErrorMsg('fullName')">Full name is required.</span>
     <input type="text" formControlName="fullName">
+    {{contactForm.get('fullName').errors | json}}
   </div>
 
   <fieldset formGroupName="addressForm">
+
+    <div *ngIf="addressFormHasErrors">
+      <ul>
+        <li *ngFor="let addressFormErrorMessage of addressFormErrorMessages">
+          {{addressFormErrorMessage}}
+        </li>
+      </ul>
+    </div>
 
     <div>
       <label>Street</label>
@@ -35,6 +44,11 @@
     <div>
       <label>City</label>
       <input type="text" formControlName="city">
+    </div>
+
+    <div>
+      <label>State</label>
+      <input type="text" formControlName="state">
     </div>
 
     <div>
