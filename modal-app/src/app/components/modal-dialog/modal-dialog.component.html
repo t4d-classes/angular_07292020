@@ -1,0 +1,16 @@
+<div id="modal">
+
+  <div class="modal-content">
+    <p>
+      <ng-content></ng-content>
+    </p>
+    <fieldset *ngIf="mode === 'Confirm'">
+      <button type="button" (click)="confirm.emit()">Close Modal</button>
+    </fieldset>
+    <fieldset *ngIf="mode === 'YesNo'">
+      <button type="button" (click)="yes.emit()">Yes</button>
+      <button type="button" (click)="no.emit()">No</button>
+    </fieldset>
+  </div>
+
+</div>

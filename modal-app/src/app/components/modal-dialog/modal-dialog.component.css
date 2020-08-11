@@ -1,0 +1,37 @@
+
+
+#modal {
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  z-index: 999;
+  background-color: lightgray;
+  opacity: 0.5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  width: 500px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+fieldset, p {
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  text-align: center;
+}
+
+fieldset {
+  margin-top: 20px;
+}
+
+fieldset button {
+  margin: 4px;
+}

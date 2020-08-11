@@ -1,0 +1,13 @@
+
+<ul>
+  <li *ngFor="let car of cars">
+    <button type="button" (click)="doConfirmDeleteCar()">Delete Car</button>
+    <app-modal-dialog *ngIf="showConfirmDeleteCarModal"
+      mode="YesNo" (yes)="doDeleteCar(car.id)" (no)="doCloseConfirmDeleteCar()">
+      Are you sure you want to <b>DELETE</b> entry {{car.make}} {{car.model}}?
+    </app-modal-dialog>
+  </li>
+</ul>
+
+
+
