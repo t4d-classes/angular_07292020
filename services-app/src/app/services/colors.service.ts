@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 
 // interface - for my data models
 interface Color {
@@ -6,6 +6,24 @@ interface Color {
   name: string;
   hexcode: string;
 }
+
+export const ColorsService = new InjectionToken('ColorsService');
+
+
+export interface IColorsService {
+  all: () => Color[];
+}
+
+@Injectable()
+export class ColorsServiceSync2 implements IColorsService {
+  public all(): Color[] {
+    return [
+      { id: 1, name: 'blue', hexcode: 'ff0000' },
+      { id: 2, name: 'orange', hexcode: '00ff00' },
+    ] as Color[];
+  }
+}
+
 
 // type alias - for adhoc data structures
 // type Color = {
@@ -27,7 +45,7 @@ interface Color {
 //   // providedIn: 'root' // registers the service in the root module (AppModule) (Angular 6)
 //   // there are other ways of registering which do not require @Injectable and "providedIn"
 // })
-export class ColorsService {
+export class ColorsServiceSync implements IColorsService {
 
   // property
   // member
