@@ -1,0 +1,63 @@
+<script>
+
+  const randomDelay = () => Math.floor(Math.random() * 1000)+ 1000;
+  
+  class Promise {
+
+    constructor(fn) {
+
+      this._resolveFns = [];
+      this._rejectFns = [];
+
+      const resolveFn = (result) => {
+        this._resolveFns.forEach(fn => fn(result));
+      };
+
+      const rejectFn = (result) => {
+        this._rejectFns.forEach(fn => fn(result));
+      };
+
+      fn(resolveFn, rejectFn);
+
+    }
+
+    then(fn) {
+      this._resolveFns.push(fn);
+    }
+
+    catch(fn) {
+      this._rejectFns.push(fn);
+    }
+
+  }
+
+  const p = new Promise(/* outer fn */ (resolve, reject) => {
+
+    console.log('calling promise constructor');
+    setTimeout(/* inner fn */ (data) => {
+      
+      console.log('calling resolve/reject');
+      /* resolve is declared in the outer function, but is used
+         in the inner function, this is a closure */
+      resolve(data);
+
+    }, randomDelay());
+
+  } );
+
+  p
+    .then( (result) => {
+      console.log('outputting result');
+      console.log(result);
+    })
+    .catch(err => {
+      console.log('called catch');
+      console.log(err);
+    });
+
+  console.log('here');
+
+
+
+</script>
+

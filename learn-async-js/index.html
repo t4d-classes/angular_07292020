@@ -1,0 +1,54 @@
+<script>
+
+  const myFetch = (url) => {
+
+    return new Promise((resolve) => {
+
+      const xhr = new XMLHttpRequest();
+
+      xhr.addEventListener('readystatechange', () => {
+    
+        if (xhr.status === 200 && xhr.readyState === 4) {
+          resolve(JSON.parse(xhr.responseText));
+        }
+    
+      });
+    
+      xhr.open('GET', url);
+      xhr.send();
+
+    });
+
+  };
+
+  const getData = async () => {
+
+    /*
+    const results = await Promise.all([
+      fetch('http://localhost:5050/cars').then(res => res.json()),
+      fetch('http://localhost:5050/colors').then(res => res.json()),
+    ]);
+
+    console.log(results);
+    */
+
+    try {
+
+      const res = await fetch('http://localhost:5050/cars');
+      const cars = await res.json();
+      console.log(cars);
+
+      const res2 = await fetch('http://localhost:5050/colors');
+      const colors = await res2.json();
+      console.log(colors);
+
+    } catch(err) {
+      console.log(err);
+    }
+
+  };
+
+  getData();
+
+</script>
+
