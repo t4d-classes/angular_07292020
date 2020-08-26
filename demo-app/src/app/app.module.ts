@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ToolHeaderComponent } from './components/tool-header/tool-header.component';
@@ -19,7 +20,7 @@ import { MyAppendPipe } from './pipes/my-append.pipe';
     MyAppendPipe
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule,
+    BrowserModule, ReactiveFormsModule, HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

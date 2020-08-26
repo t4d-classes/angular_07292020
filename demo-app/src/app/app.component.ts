@@ -1,30 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Color } from './models/Color';
-import { ColorFormComponent } from './components/color-form/color-form.component';
+import { ColorsService } from './services/colors.service';
 
 @Component({
   selector: 'app-root2',
   templateUrl: './app.component.html', // template
   styleUrls: ['./app.component.css'] // styling
 })
-export class AppComponent {
-
-  // model - data and functions which are applied to the template
+export class AppComponent implements OnInit {
 
   headerText = 'Color Tool';
 
-  colors: Color[] = [
-    { id: 1, name: 'red', hexcode: 'ff0000' },
-    { id: 2, name: 'green', hexcode: '00ff00' },
-    { id: 3, name: 'blue', hexcode: '0000ff' },
-  ];
+  colors: Color[] = [];
+
+  constructor(private colorsSvc: ColorsService) { }
+
+  ngOnInit(): void {
+    this.colorsSvc.all().then(colors => this.colors = colors);
+  }
 
   doAddColor(color: Color): void {
-    this.colors = this.colors.concat({
-      ...color,
-      id: Math.max(...this.colors.map(c => c.id), 0) + 1,
-    });
+    this.colorsSvc
+      .append(color)
+      .then(() => this.colorsSvc.all())
+      .then(colors => this.colors = colors);
   }
 
   doDeleteColor(colorId: number): void {
