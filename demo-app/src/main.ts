@@ -15,8 +15,8 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
 // obj[keyMustBeAString] = valueCanBeAnything
 
-const DATE_SORT = 1; // 'datesort';
-const PRI_SORT = 2; // 'prisort';
+// const DATE_SORT = 1; // 'datesort';
+// const PRI_SORT = 2; // 'prisort';
 
 // let mySortCache: {
 //   [ x: string ]: []
@@ -28,13 +28,13 @@ const PRI_SORT = 2; // 'prisort';
 // // invalidate
 // mySortCache = {};
 
-const mySortCache = new Map<number, any[]>();
+// const mySortCache = new Map<number, any[]>();
 
-mySortCache.set(DATE_SORT, []);
-mySortCache.set(PRI_SORT, []);
+// mySortCache.set(DATE_SORT, []);
+// mySortCache.set(PRI_SORT, []);
 
-if (mySortCache.has(DATE_SORT)) {
-  const sortedItems = mySortCache.get(DATE_SORT);
-}
+// if (mySortCache.has(DATE_SORT)) {
+//   const sortedItems = mySortCache.get(DATE_SORT);
+// }
 
-mySortCache.clear();
+// mySortCache.clear();
