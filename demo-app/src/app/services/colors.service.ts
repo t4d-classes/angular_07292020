@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { Color } from '../models/Color';
 
@@ -10,15 +11,15 @@ export class ColorsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  all(): Promise<Color[]> {
-    return this.httpClient.get<Color[]>('http://localhost:4250/colors').toPromise();
+  all(): Observable<Color[]> {
+    return this.httpClient.get<Color[]>('http://localhost:4250/colors');
   }
 
-  append(color: Color): Promise<Color> {
+  append(color: Color): Observable<Color> {
     return this.httpClient.post<Color>(
       'http://localhost:4250/colors',
       color,
-    ).toPromise();
+    );
   }
 
   // Add a remove method which receives the id of the color to delete.

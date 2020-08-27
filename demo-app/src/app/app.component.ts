@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 
 import { Color } from './models/Color';
 import { ColorsService } from './services/colors.service';
@@ -17,14 +18,14 @@ export class AppComponent implements OnInit {
   constructor(private colorsSvc: ColorsService) { }
 
   ngOnInit(): void {
-    this.colorsSvc.all().then(colors => this.colors = colors);
+    this.colorsSvc.all().subscribe(colors => this.colors = colors);
   }
 
   doAddColor(color: Color): void {
     this.colorsSvc
       .append(color)
-      .then(() => this.colorsSvc.all())
-      .then(colors => this.colors = colors);
+      .pipe(switchMap(() => this.colorsSvc.all()))
+      .subscribe(colors => this.colors = colors);
   }
 
   doDeleteColor(colorId: number): void {
