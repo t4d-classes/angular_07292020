@@ -1,0 +1,13 @@
+<header>
+  <h1>Color Tool</h1>
+</header>
+<ul>
+  <li *ngFor="let color of colors$ | async">
+    {{color}}
+  </li>
+</ul>
+<div>
+  <input type="text" [formControl]="newColorInput">
+  <button type="button" (click)="addColor()">
+    Add Color</button>
+</div>
